@@ -48,7 +48,7 @@ jobs:
             set -ex
             echo "=== Starting Deployment ==="
             docker pull ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest || echo "Pull failed, continuing deployment"
-            docker stack deploy -c $COMPOSE_FILE myapp
+            docker stack deploy -c docker-compose.yml myapp
             sleep 15
             echo "=== Deployment Status ==="
             docker service ls
