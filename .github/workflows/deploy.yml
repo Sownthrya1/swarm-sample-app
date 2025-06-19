@@ -32,3 +32,4 @@ jobs:
             docker pull ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest
             docker service update --image ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest --force myapp_web
 
+# Trigger rebuild
