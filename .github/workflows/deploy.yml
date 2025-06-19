@@ -1,4 +1,5 @@
-name: CI/CD for Docker Swarm
+ docker build -t ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest .
+docker build -t ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest .name: CI/CD for Docker Swarm
 
 on:
   push:
@@ -18,7 +19,7 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest ./sample-swarm-app
           docker push ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest
 
       - name: Deploy to Docker Swarm Server
