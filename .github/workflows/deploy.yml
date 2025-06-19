@@ -14,17 +14,13 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Build and push Docker image
         run: |
-          docker buildx build --platform linux/amd64 \
-            -t ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest \
-            ./sample-swarm-app \
-            --push
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest ./sample-swarm-app
+          docker push ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest
 
       - name: Deploy to Docker Swarm Server
         uses: appleboy/ssh-action@v1.0.0
@@ -35,4 +31,3 @@ jobs:
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest
             docker service update --image ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest myapp_web
-
