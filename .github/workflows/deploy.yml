@@ -1,6 +1,4 @@
- docker build -t ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest .
-docker build -t ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest .name: CI/CD for Docker Swarm
-
+name: CI/CD for Docker Swarm
 on:
   push:
     branches:
