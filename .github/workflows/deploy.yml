@@ -30,4 +30,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest
-            docker service update --image ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest myapp_web
+            docker service update --image ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest --force myapp_web
+
