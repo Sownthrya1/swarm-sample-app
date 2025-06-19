@@ -33,13 +33,23 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: |
+            NODE_ENV=production
 
       - name: Deploy to Docker Swarm
+        env:
+          COMPOSE_FILE: docker-compose.yml
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest
-            docker stack deploy -c docker-compose.yml myapp
+            set -ex
+            echo "=== Starting Deployment ==="
+            docker pull ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest || echo "Pull failed, continuing deployment"
+            docker stack deploy -c $COMPOSE_FILE myapp
+            sleep 15
+            echo "=== Deployment Status ==="
+            docker service ls
+            docker service ps myapp_web --no-trunc
