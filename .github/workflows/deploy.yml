@@ -30,7 +30,7 @@ jobs:
         with:
           context: ./sample-swarm-app
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest
+          tags: sownthryasenthilkumar1/swarm-sample-app:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
