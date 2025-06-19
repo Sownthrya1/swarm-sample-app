@@ -18,7 +18,7 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build buildx build --platform linux/amd64 -t ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest ./sample-swarm-app --push
+          docker buildx build --platform linux/amd64 -t ${{ secrets.DOCKER_USERNAME }}/swarm-sample-app:latest ./sample-swarm-app --push
 
       - name: Deploy to Docker Swarm Server
         uses: appleboy/ssh-action@v1.0.0
