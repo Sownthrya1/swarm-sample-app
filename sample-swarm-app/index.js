@@ -1,7 +1,7 @@
 const http = require('http');
 
 const server = http.createServer((req, res) => {
-  res.end('Sample Docker Swarm App');
+  res.end('Showing demo');
 });
 
 server.listen(3000, () => {
