@@ -1,11 +1,17 @@
 version: "3.8"
+
 services:
   web:
     image: sownthryasenthilkumar1/swarm-sample-app:latest
     ports:
       - "3000:3000"
+    volumes:
+      - app-logs:/app
     deploy:
       replicas: 3
       placement:
         constraints:
           - node.labels.type == frontend
+
+volumes:
+  app-logs:
