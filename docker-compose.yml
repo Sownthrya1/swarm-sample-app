@@ -1,12 +1,10 @@
-version: "3.8"
-
 services:
   web:
     image: sownthryasenthilkumar1/swarm-sample-app:latest
     ports:
       - "3000:3000"
     volumes:
-      - app-logs:/app
+      - app-logs:/app/logs
     deploy:
       replicas: 3
       placement:

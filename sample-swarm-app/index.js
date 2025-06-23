@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Define the log file path (inside container: /app/log.txt)
-const logFile = path.join(__dirname, 'log.txt');
+const logFile = path.join(__dirname, 'logs', 'log.txt');
 
 // Create HTTP server
 const server = http.createServer((req, res) => {
