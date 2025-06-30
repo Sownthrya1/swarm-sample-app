@@ -5,13 +5,17 @@ services:
     image: sownthryasenthilkumar1/swarm-sample-app:latest
     ports:
       - "3000:3000"
-    volumes:
-      - app-logs:/app/logs
     deploy:
       replicas: 3
-      placement:
-        constraints:
-          - node.labels.type == frontend
+      restart_policy:
+        condition: on-failure
+    volumes:
+      - app-logs:/app/logs  
 
 volumes:
   app-logs:
+    driver: local
+    driver_opts:
+      type: "nfs"
+      o: "addr=51.15.209.223,rw,noatime,vers=4,soft,timeo=300"
+      device: ":/srv/nfs/app-logs"
