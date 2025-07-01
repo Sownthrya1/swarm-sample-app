@@ -12,6 +12,17 @@ services:
     volumes:
       - app-logs:/app/logs  
 
+  mongo:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    deploy:
+      placement:
+        constraints:
+          - node.role == worker
+
 volumes:
   app-logs:
     driver: local
@@ -19,3 +30,5 @@ volumes:
       type: "nfs"
       o: "addr=51.15.209.223,rw,noatime,vers=4,soft,timeo=300"
       device: ":/srv/nfs/app-logs"
+  mongo_data:
+    driver: local
